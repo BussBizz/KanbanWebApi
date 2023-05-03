@@ -9,11 +9,31 @@ namespace KanbanWebApi.DB
         {
         }
 
-        public DbSet<Guest> Guests { get; set; }
-        public DbSet<KanbanBoard> KanbanBoards { get; set; }
-        public DbSet<KanbanCategory> KanbanCategories { get; set; }
-        public DbSet<KanbanComment> KanbanComments { get; set; }
-        public DbSet<KanbanTask> KanbanTasks { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Member> Members { get; set; } = null!;
+        public DbSet<Board> Boards { get; set; } = null!;
+        public DbSet<Category> Categories { get; set; } = null!;
+        public DbSet<Comment> Comments { get; set; } = null!;
+        public DbSet<KanbanTask> KanbanTasks { get; set; } = null!;
+        public DbSet<User> Users { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Member>().HasMany(m => m.TasksCreated)
+                .WithOne(tc => tc.Creator)
+                .HasForeignKey(tc => tc.CreatorId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+            modelBuilder.Entity<Member>().HasMany(m => m.TasksAssigned)
+                .WithOne(ta => ta.Assigned)
+                .HasForeignKey(ta => ta.AssingedId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+            modelBuilder.Entity<Member>().HasMany(m => m.Comments)
+                .WithOne(c => c.Member)
+                .HasForeignKey(c => c.MemberId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+            modelBuilder.Entity<Member>().HasMany(m => m.Categories)
+                .WithOne(c => c.Creator)
+                .HasForeignKey(c => c.CreatorId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+        }
     }
 }

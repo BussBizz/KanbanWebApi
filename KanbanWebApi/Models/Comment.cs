@@ -11,7 +11,7 @@
         public int? MemberId { get; set; }
 
         // Navigation prop
-        public KanbanTask KanbanTask { get; set; } = null!;
+        public KanbanTask? KanbanTask { get; set; }
         public Member? Member { get; set;}
     }
 }

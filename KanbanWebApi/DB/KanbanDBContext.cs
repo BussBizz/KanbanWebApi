@@ -34,6 +34,10 @@ namespace KanbanWebApi.DB
                 .WithOne(c => c.Creator)
                 .HasForeignKey(c => c.CreatorId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+            modelBuilder.Entity<User>().HasMany(u => u.Boards)
+                .WithOne(b => b.Owner)
+                .HasForeignKey(b => b.OwnerId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }

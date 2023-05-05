@@ -13,7 +13,7 @@
         public int? AssingedId { get; set; }
 
         // Navigation prop
-        public Category Category { get; set; } = null!;
+        public Category? Category { get; set; }
         public Member? Creator { get; set; }
         public Member? Assigned { get; set; }
 

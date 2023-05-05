@@ -9,10 +9,10 @@ namespace KanbanWebApi.Models
         public DateTime? DeadLine { get; set; }
 
         // Foreign Key
-        public int OwnerId { get; set; }
+        public int? OwnerId { get; set; }
 
         // Navigation prop
-        public User Owner { get; set; } = null!;
+        public User? Owner { get; set; }
 
         // Collection prop
         public ICollection<Category> Categories { get; set; } = null!;

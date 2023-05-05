@@ -12,8 +12,8 @@
         public int UserId { get; set; }
 
         // Navigation prop
-        public Board Board { get; set; } = null!;
-        public User User { get; set; } = null!;
+        public Board? Board { get; set; }
+        public User? User { get; set; }
 
         // Collection prop
         public ICollection<KanbanTask> TasksAssigned { get; set;} = null!;

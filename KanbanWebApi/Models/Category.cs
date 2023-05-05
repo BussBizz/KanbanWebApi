@@ -11,7 +11,7 @@
         public int? CreatorId { get; set; }
 
         // Navigation prop
-        public Board Board { get; set; } = null!;
+        public Board? Board { get; set; }
         public Member? Creator { get; set; }
 
         // Collection prop

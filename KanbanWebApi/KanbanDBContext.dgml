@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="Board" Category="EntityType" Annotations="Relational:TableName: KanbanBoards RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" BaseClass="" Bounds="263.732556630418,1529.43492327963,309.573525797526,197.880505078125" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot" Group="Expanded" IsAbstract="False" Label="Board" Name="Board" UseManualLocation="True" />
+    <Node Id="Board.Categories" Category="Navigation Collection" Bounds="283.732526448929,1681.35520507812,91.9566666666667,25.96" Dependent="Category" Field="" Inverse="Board" Label="Categories (*)" Name="Categories" Principal="" PropertyAccessMode="PropertyAccessMode.Default" Type="ICollection&lt;Category&gt;" />
+    <Node Id="Board.DeadLine" Category="Property Optional" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="405.689813232783,1681.35520507812,136.063333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="False" IsShadow="False" IsUnicode="True" Label="DeadLine (DateTime?)" MaxLength="None" Name="DeadLine" PropertyAccessMode="PropertyAccessMode.Default" Type="DateTime?" ValueGenerated="None" />
+    <Node Id="Board.Id" Category="Property Primary" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="SqlServer:ValueGenerationStrategy: IdentityColumn" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="283.732582194372,1569.43491699219,54.55,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="True" IsRequired="True" IsShadow="False" IsUnicode="True" Label="Id (int)" MaxLength="None" Name="Id" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="ValueGenerated.OnAdd" />
+    <Node Id="Board.Members" Category="Navigation Collection" Bounds="283.732860921586,1625.395,85.5166666666667,25.96" Dependent="Member" Field="" Inverse="Board" Label="Members (*)" Name="Members" Principal="" PropertyAccessMode="PropertyAccessMode.Default" Type="ICollection&lt;Member&gt;" />
+    <Node Id="Board.Owner" Category="Navigation Property" Bounds="368.282605794632,1569.43491699219,71.9566666666667,25.96" Dependent="" Field="" Inverse="Boards" Label="Owner (1)" Name="Owner" Principal="User" PropertyAccessMode="PropertyAccessMode.Default" Type="User" />
+    <Node Id="Board.OwnerId" Category="Property Foreign" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="399.249621989294,1625.395,89.51,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="True" IsIndexed="True" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="OwnerId (int)" MaxLength="None" Name="OwnerId" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="None" />
+    <Node Id="Board.Titel" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="470.239400838578,1569.43491699219,83.0666666666667,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="Titel (string)" MaxLength="None" Name="Titel" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="Category" Category="EntityType" Annotations="Relational:TableName: KanbanCategories RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" BaseClass="" Bounds="-111.725548327095,1491.58933002805,299.056757659912,253.840605078125" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot" Group="Expanded" IsAbstract="False" Label="Category" Name="Category" UseManualLocation="True" />
+    <Node Id="Category.Board" Category="Navigation Property" Bounds="-7.17550548295287,1531.5893359375,68.2533333333333,25.96" Dependent="" Field="" Inverse="Categories" Label="Board (1)" Name="Board" Principal="Board" PropertyAccessMode="PropertyAccessMode.Default" Type="Board" />
+    <Node Id="Category.BoardId" Category="Property Foreign" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="21.3410614834218,1587.54954101562,85.8066666666667,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="True" IsIndexed="True" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="BoardId (int)" MaxLength="None" Name="BoardId" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="None" />
+    <Node Id="Category.Creator" Category="Navigation Property" Bounds="91.0778674246857,1531.5893359375,76.2533333333333,25.96" Dependent="" Field="" Inverse="Categories" Label="Creator (1)" Name="Creator" Principal="Member" PropertyAccessMode="PropertyAccessMode.Default" Type="Member" />
+    <Node Id="Category.CreatorId" Category="Property Foreign" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-91.7255721606822,1643.50962402344,99.1866666666667,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="True" IsIndexed="True" IsPrimaryKey="False" IsRequired="False" IsShadow="False" IsUnicode="True" Label="CreatorId (int?)" MaxLength="None" Name="CreatorId" PropertyAccessMode="PropertyAccessMode.Default" Type="int?" ValueGenerated="None" />
+    <Node Id="Category.Deadline" Category="Property Optional" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-91.7252489286672,1699.46982910156,133.32,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="False" IsShadow="False" IsUnicode="True" Label="Deadline (DateTime?)" MaxLength="None" Name="Deadline" PropertyAccessMode="PropertyAccessMode.Default" Type="DateTime?" ValueGenerated="None" />
+    <Node Id="Category.Id" Category="Property Primary" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="SqlServer:ValueGenerationStrategy: IdentityColumn" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-91.7254894834768,1531.5893359375,54.55,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="True" IsRequired="True" IsShadow="False" IsUnicode="True" Label="Id (int)" MaxLength="None" Name="Id" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="ValueGenerated.OnAdd" />
+    <Node Id="Category.KanbanTasks" Category="Navigation Collection" Bounds="37.4610836722443,1643.50962402344,102.533333333333,25.96" Dependent="KanbanTask" Field="" Inverse="Category" Label="KanbanTasks (*)" Name="KanbanTasks" Principal="" PropertyAccessMode="PropertyAccessMode.Default" Type="ICollection&lt;KanbanTask&gt;" />
+    <Node Id="Category.Title" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-91.7255582751841,1587.54954101562,83.0666666666667,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="Title (string)" MaxLength="None" Name="Title" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="Comment" Category="EntityType" Annotations="Relational:TableName: KanbanComments RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" BaseClass="" Bounds="-568.633441114915,1129.4175062271,330.390013427734,197.8804" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot" Group="Expanded" IsAbstract="False" Label="Comment" Name="Comment" UseManualLocation="True" />
+    <Node Id="Comment.Content" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-419.726771285546,1225.37778808594,103.073333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="Content (string)" MaxLength="None" Name="Content" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="Comment.Id" Category="Property Primary" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="SqlServer:ValueGenerationStrategy: IdentityColumn" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-548.633576908918,1169.41758300781,54.55,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="True" IsRequired="True" IsShadow="False" IsUnicode="True" Label="Id (int)" MaxLength="None" Name="Id" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="ValueGenerated.OnAdd" />
+    <Node Id="Comment.Image" Category="Property Optional" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-352.193440190169,1169.41758300781,93.95,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="False" IsShadow="False" IsUnicode="True" Label="Image (byte[])" MaxLength="None" Name="Image" PropertyAccessMode="PropertyAccessMode.Default" Type="byte[]" ValueGenerated="None" />
+    <Node Id="Comment.KanbanTask" Category="Navigation Property" Bounds="-548.632955164127,1225.37778808594,98.9066666666666,25.96" Dependent="" Field="" Inverse="Comments" Label="KanbanTask (1)" Name="KanbanTask" Principal="KanbanTask" PropertyAccessMode="PropertyAccessMode.Default" Type="KanbanTask" />
+    <Node Id="Comment.KanbanTaskId" Category="Property Foreign" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-413.80990564427,1281.33774902344,116.46,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="True" IsIndexed="True" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="KanbanTaskId (int)" MaxLength="None" Name="KanbanTaskId" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="None" />
+    <Node Id="Comment.Member" Category="Navigation Property" Bounds="-464.083392582747,1169.41758300781,81.89,25.96" Dependent="" Field="" Inverse="Comments" Label="Member (1)" Name="Member" Principal="Member" PropertyAccessMode="PropertyAccessMode.Default" Type="Member" />
+    <Node Id="Comment.MemberId" Category="Property Foreign" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-548.633204391015,1281.33774902344,104.823333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="True" IsIndexed="True" IsPrimaryKey="False" IsRequired="False" IsShadow="False" IsUnicode="True" Label="MemberId (int?)" MaxLength="None" Name="MemberId" PropertyAccessMode="PropertyAccessMode.Default" Type="int?" ValueGenerated="None" />
+    <Node Id="IModel" Category="Model" Annotations="BaseTypeDiscoveryConvention:DerivedTypes: System.Collections.Generic.Dictionary`2[System.Type,System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.IConventionEntityType]] Relational:MaxIdentifierLength: 128 RelationshipDiscoveryConvention:InverseNavigationCandidates: System.Collections.Generic.Dictionary`2[System.Type,System.Collections.Generic.SortedSet`1[System.Type]] SqlServer:ValueGenerationStrategy: IdentityColumn" Bounds="-598.573927146649,1053.37205369466,1204.74533749285,720.567027701816" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot" Group="Expanded" Label="KanbanDBContext" ProductVersion="7.0.5" PropertyAccessMode="PropertyAccessMode.Default" />
+    <Node Id="KanbanTask" Category="EntityType" Annotations="Relational:TableName: KanbanTasks RelationshipDiscoveryConvention:AmbiguousNavigations: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.MemberInfo,System.Type] RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" BaseClass="" Bounds="-578.573795033385,1444.13824545759,408.3737484029,309.800644042969" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot" Group="Expanded" IsAbstract="False" Label="KanbanTask" Name="KanbanTask" UseManualLocation="True" />
+    <Node Id="KanbanTask.Assigned" Category="Navigation Property" Bounds="-443.62014831543,1540.09847864512,85.03,25.96" Dependent="" Field="" Inverse="TasksAssigned" Label="Assigned (1)" Name="Assigned" Principal="Member" PropertyAccessMode="PropertyAccessMode.Default" Type="Member" />
+    <Node Id="KanbanTask.AssingedId" Category="Property Foreign" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-558.57373819987,1652.01864466074,107.963333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="True" IsIndexed="True" IsPrimaryKey="False" IsRequired="False" IsShadow="False" IsUnicode="True" Label="AssingedId (int?)" MaxLength="None" Name="AssingedId" PropertyAccessMode="PropertyAccessMode.Default" Type="int?" ValueGenerated="None" />
+    <Node Id="KanbanTask.Category" Category="Navigation Property" Bounds="-558.573483683268,1540.09847864512,84.9533333333333,25.96" Dependent="" Field="" Inverse="KanbanTasks" Label="Category (1)" Name="Category" Principal="Category" PropertyAccessMode="PropertyAccessMode.Default" Type="Category" />
+    <Node Id="KanbanTask.CategoryId" Category="Property Foreign" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-429.386618855794,1596.05856165293,102.506666666667,25.96" Field="nofield" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="True" IsIndexed="True" IsPrimaryKey="False" IsRequired="True" IsShadow="True" IsUnicode="True" Label="CategoryId (int)" MaxLength="None" Name="CategoryId" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="None" />
+    <Node Id="KanbanTask.CatergoryId" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-296.880100097656,1596.05856165293,106.68,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="CatergoryId (int)" MaxLength="None" Name="CatergoryId" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="None" />
+    <Node Id="KanbanTask.Comments" Category="Navigation Collection" Bounds="-328.590088195801,1540.09847864512,92.89,25.96" Dependent="Comment" Field="" Inverse="KanbanTask" Label="Comments (*)" Name="Comments" Principal="" PropertyAccessMode="PropertyAccessMode.Default" Type="ICollection&lt;Comment&gt;" />
+    <Node Id="KanbanTask.Creator" Category="Navigation Property" Bounds="-474.023563028971,1484.13839563731,76.2533333333333,25.96" Dependent="" Field="" Inverse="TasksCreated" Label="Creator (1)" Name="Creator" Principal="Member" PropertyAccessMode="PropertyAccessMode.Default" Type="Member" />
+    <Node Id="KanbanTask.CreatorId" Category="Property Foreign" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-558.573359578451,1596.05856165293,99.1866666666667,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="True" IsIndexed="True" IsPrimaryKey="False" IsRequired="False" IsShadow="False" IsUnicode="True" Label="CreatorId (int?)" MaxLength="None" Name="CreatorId" PropertyAccessMode="PropertyAccessMode.Default" Type="int?" ValueGenerated="None" />
+    <Node Id="KanbanTask.Deadline" Category="Property Optional" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-558.572811279297,1707.97872766856,133.32,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="False" IsShadow="False" IsUnicode="True" Label="Deadline (DateTime?)" MaxLength="None" Name="Deadline" PropertyAccessMode="PropertyAccessMode.Default" Type="DateTime?" ValueGenerated="None" />
+    <Node Id="KanbanTask.Description" Category="Property Optional" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-420.610193074544,1652.01864466074,120.876666666667,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="False" IsShadow="False" IsUnicode="True" Label="Description (string)" MaxLength="None" Name="Description" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="KanbanTask.Id" Category="Property Primary" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="SqlServer:ValueGenerationStrategy: IdentityColumn" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-558.573919677734,1484.13839563731,54.55,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="True" IsRequired="True" IsShadow="False" IsUnicode="True" Label="Id (int)" MaxLength="None" Name="Id" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="ValueGenerated.OnAdd" />
+    <Node Id="KanbanTask.Title" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-367.770164998372,1484.13839563731,83.0666666666667,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="Title (string)" MaxLength="None" Name="Title" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="Member" Category="EntityType" Annotations="Relational:TableName: KanbanMembers RelationshipDiscoveryConvention:AmbiguousNavigations: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.MemberInfo,System.Type] RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" BaseClass="" Bounds="-171.803207521152,1093.37224208932,422.890243593852,253.840605078125" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot" Group="Expanded" IsAbstract="False" Label="Member" Name="Member" UseManualLocation="True" />
+    <Node Id="Member.Board" Category="Navigation Property" Bounds="23.5301288350423,1133.37231345808,68.2533333333333,25.96" Dependent="" Field="" Inverse="Members" Label="Board (1)" Name="Board" Principal="Board" PropertyAccessMode="PropertyAccessMode.Default" Type="Board" />
+    <Node Id="Member.BoardId" Category="Property Foreign" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-151.803224232992,1189.33239646589,85.8066666666667,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="True" IsIndexed="True" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="BoardId (int)" MaxLength="None" Name="BoardId" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="None" />
+    <Node Id="Member.CanAssign" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="121.523669331868,1245.2924794737,109.563333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="CanAssign (bool)" MaxLength="None" Name="CanAssign" PropertyAccessMode="PropertyAccessMode.Default" Type="bool" ValueGenerated="None" />
+    <Node Id="Member.CanComplete" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-11.0431609153748,1301.25268455183,126.25,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="CanComplete (bool)" MaxLength="None" Name="CanComplete" PropertyAccessMode="PropertyAccessMode.Default" Type="bool" ValueGenerated="None" />
+    <Node Id="Member.CanCreate" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-17.6798116938273,1245.2924794737,109.203333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="CanCreate (bool)" MaxLength="None" Name="CanCreate" PropertyAccessMode="PropertyAccessMode.Default" Type="bool" ValueGenerated="None" />
+    <Node Id="Member.Categories" Category="Navigation Collection" Bounds="-35.9965561421712,1189.33239646589,91.9566666666667,25.96" Dependent="Category" Field="" Inverse="Creator" Label="Categories (*)" Name="Categories" Principal="" PropertyAccessMode="PropertyAccessMode.Default" Type="ICollection&lt;Category&gt;" />
+    <Node Id="Member.Comments" Category="Navigation Collection" Bounds="85.9601132202149,1189.33239646589,92.89,25.96" Dependent="Comment" Field="" Inverse="Member" Label="Comments (*)" Name="Comments" Principal="" PropertyAccessMode="PropertyAccessMode.Default" Type="ICollection&lt;Comment&gt;" />
+    <Node Id="Member.Id" Category="Property Primary" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="SqlServer:ValueGenerationStrategy: IdentityColumn" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="-151.803205871582,1133.37231345808,54.55,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="True" IsRequired="True" IsShadow="False" IsUnicode="True" Label="Id (int)" MaxLength="None" Name="Id" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="ValueGenerated.OnAdd" />
+    <Node Id="Member.TasksAssigned" Category="Navigation Collection" Bounds="-151.803160552979,1301.25268455183,110.76,25.96" Dependent="KanbanTask" Field="" Inverse="Assigned" Label="TasksAssigned (*)" Name="TasksAssigned" Principal="" PropertyAccessMode="PropertyAccessMode.Default" Type="ICollection&lt;KanbanTask&gt;" />
+    <Node Id="Member.TasksCreated" Category="Navigation Collection" Bounds="-151.803144632975,1245.2924794737,104.123333333333,25.96" Dependent="KanbanTask" Field="" Inverse="Creator" Label="TasksCreated (*)" Name="TasksCreated" Principal="" PropertyAccessMode="PropertyAccessMode.Default" Type="ICollection&lt;KanbanTask&gt;" />
+    <Node Id="Member.User" Category="Navigation Property" Bounds="-67.2532122294108,1133.37231345808,60.7833333333333,25.96" Dependent="" Field="" Inverse="Memberships" Label="User (1)" Name="User" Principal="User" PropertyAccessMode="PropertyAccessMode.Default" Type="User" />
+    <Node Id="Member.UserId" Category="Property Foreign" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="121.783567148844,1133.37231345808,78.3366666666667,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="True" IsIndexed="True" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="UserId (int)" MaxLength="None" Name="UserId" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="None" />
+    <Node Id="User" Category="EntityType" Annotations="" BaseClass="" Bounds="298.64127908932,1134.64254251866,287.530014444987,197.880416992188" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot" Group="Expanded" IsAbstract="False" Label="User" Name="User" UseManualLocation="True" />
+    <Node Id="User.Boards" Category="Navigation Collection" Bounds="403.191439208984,1174.64276758275,71.88,25.96" Dependent="Board" Field="" Inverse="Owner" Label="Boards (*)" Name="Boards" Principal="" PropertyAccessMode="PropertyAccessMode.Default" Type="ICollection&lt;Board&gt;" />
+    <Node Id="User.Id" Category="Property Primary" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="SqlServer:ValueGenerationStrategy: IdentityColumn" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="318.641229248047,1174.64276758275,54.55,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="True" IsRequired="True" IsShadow="False" IsUnicode="True" Label="Id (int)" MaxLength="None" Name="Id" PropertyAccessMode="PropertyAccessMode.Default" Type="int" ValueGenerated="ValueGenerated.OnAdd" />
+    <Node Id="User.IsAnon" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="318.641365559896,1230.60285059056,91.1833333333333,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="IsAnon (bool)" MaxLength="None" Name="IsAnon" PropertyAccessMode="PropertyAccessMode.Default" Type="bool" ValueGenerated="None" />
+    <Node Id="User.Memberships" Category="Navigation Collection" Bounds="318.641395874023,1286.56305566868,107.36,25.96" Dependent="Member" Field="" Inverse="User" Label="Memberships (*)" Name="Memberships" Principal="" PropertyAccessMode="PropertyAccessMode.Default" Type="ICollection&lt;Member&gt;" />
+    <Node Id="User.Name" Category="Property Required" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="439.824649658203,1230.60297266087,92.3200000000001,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="True" IsShadow="False" IsUnicode="True" Label="Name (string)" MaxLength="None" Name="Name" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+    <Node Id="User.Password" Category="Property Optional" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" BeforeSaveBehavior="PropertySaveBehavior.Save" Bounds="456.001380004883,1286.56305566868,110.17,25.96" Field="" IsAlternateKey="False" IsConcurrencyToken="False" IsForeignKey="False" IsIndexed="False" IsPrimaryKey="False" IsRequired="False" IsShadow="False" IsUnicode="True" Label="Password (string)" MaxLength="None" Name="Password" PropertyAccessMode="PropertyAccessMode.Default" Type="string" ValueGenerated="None" />
+  </Nodes>
+  <Links>
+    <Link Source="Board" Target="Board.Categories" Category="Contains" />
+    <Link Source="Board" Target="Board.DeadLine" Category="Contains" />
+    <Link Source="Board" Target="Board.Id" Category="Contains" />
+    <Link Source="Board" Target="Board.Members" Category="Contains" />
+    <Link Source="Board" Target="Board.Owner" Category="Contains" />
+    <Link Source="Board" Target="Board.OwnerId" Category="Contains" />
+    <Link Source="Board" Target="Board.Titel" Category="Contains" />
+    <Link Source="Board" Target="User" Category="Foreign Key" Annotations="" Bounds="424.505712320379,1341.50653068684,11.3706317278171,187.92839259279" From="Board.OwnerId" IsUnique="False" Label="1:*" LabelBounds="412.117688174415,1427.3699376194,14.0733333333333,15.96" Name="Board -&gt; User" To="User.Id" />
+    <Link Source="Category" Target="Board" Category="Foreign Key" Annotations="" Bounds="187.331209332817,1622.38437592919,67.4043674753216,1.74665590233212" From="Category.BoardId" IsUnique="False" Label="1:*" LabelBounds="214.048535205916,1603.29770365505,14.0733333333333,15.96" Name="Category -&gt; Board" To="Board.Id" />
+    <Link Source="Category" Target="Category.Board" Category="Contains" />
+    <Link Source="Category" Target="Category.BoardId" Category="Contains" />
+    <Link Source="Category" Target="Category.Creator" Category="Contains" />
+    <Link Source="Category" Target="Category.CreatorId" Category="Contains" />
+    <Link Source="Category" Target="Category.Deadline" Category="Contains" />
+    <Link Source="Category" Target="Category.Id" Category="Contains" />
+    <Link Source="Category" Target="Category.KanbanTasks" Category="Contains" />
+    <Link Source="Category" Target="Category.Title" Category="Contains" />
+    <Link Source="Category" Target="Member" Category="Foreign Key" Annotations="" Bounds="38.3889858335152,1356.21275119009,0.625208904675603,135.376578837965" From="Category.CreatorId" IsUnique="False" Label="1:*" LabelBounds="20.6282569522922,1415.91180411864,14.0733333333333,15.9600000000003" Name="Category -&gt; Member" To="Member.Id" />
+    <Link Source="Comment" Target="Comment.Content" Category="Contains" />
+    <Link Source="Comment" Target="Comment.Id" Category="Contains" />
+    <Link Source="Comment" Target="Comment.Image" Category="Contains" />
+    <Link Source="Comment" Target="Comment.KanbanTask" Category="Contains" />
+    <Link Source="Comment" Target="Comment.KanbanTaskId" Category="Contains" />
+    <Link Source="Comment" Target="Comment.Member" Category="Contains" />
+    <Link Source="Comment" Target="Comment.MemberId" Category="Contains" />
+    <Link Source="Comment" Target="KanbanTask" Category="Foreign Key" Annotations="" Bounds="-395.68415608972,1327.2979062271,8.4539687127305,107.867853286788" From="Comment.KanbanTaskId" IsUnique="False" Label="1:*" LabelBounds="-387.457152984103,1373.09556529528,14.0733333333332,15.96" Name="Comment -&gt; KanbanTask" To="KanbanTask.Id" />
+    <Link Source="Comment" Target="Member" Category="Foreign Key" Annotations="" Bounds="-238.243427687181,1224.30516562183,57.4417107820292,1.04558164528635" From="Comment.MemberId" IsUnique="False" Label="1:*" LabelBounds="-216.595637895164,1204.8679563896,14.0733333333334,15.96" Name="Comment -&gt; Member" To="Member.Id" />
+    <Link Source="IModel" Target="Board" Category="Contains" />
+    <Link Source="IModel" Target="Category" Category="Contains" />
+    <Link Source="IModel" Target="Comment" Category="Contains" />
+    <Link Source="IModel" Target="KanbanTask" Category="Contains" />
+    <Link Source="IModel" Target="Member" Category="Contains" />
+    <Link Source="IModel" Target="User" Category="Contains" />
+    <Link Source="KanbanTask" Target="Category" Category="Foreign Key" Annotations="" Bounds="-170.200046630485,1608.6839696387,49.4845230053185,2.3375553738706" From="KanbanTask.CategoryId" IsUnique="False" Label="1:*" LabelBounds="-152.400080806049,1589.89274484152,14.0733333333333,15.9600000000005" Name="KanbanTask -&gt; Category" To="Category.Id" />
+    <Link Source="KanbanTask" Target="KanbanTask.Assigned" Category="Contains" />
+    <Link Source="KanbanTask" Target="KanbanTask.AssingedId" Category="Contains" />
+    <Link Source="KanbanTask" Target="KanbanTask.Category" Category="Contains" />
+    <Link Source="KanbanTask" Target="KanbanTask.CategoryId" Category="Contains" />
+    <Link Source="KanbanTask" Target="KanbanTask.CatergoryId" Category="Contains" />
+    <Link Source="KanbanTask" Target="KanbanTask.Comments" Category="Contains" />
+    <Link Source="KanbanTask" Target="KanbanTask.Creator" Category="Contains" />
+    <Link Source="KanbanTask" Target="KanbanTask.CreatorId" Category="Contains" />
+    <Link Source="KanbanTask" Target="KanbanTask.Deadline" Category="Contains" />
+    <Link Source="KanbanTask" Target="KanbanTask.Description" Category="Contains" />
+    <Link Source="KanbanTask" Target="KanbanTask.Id" Category="Contains" />
+    <Link Source="KanbanTask" Target="KanbanTask.Title" Category="Contains" />
+    <Link Source="KanbanTask" Target="Member" Category="Foreign Key" Annotations="" Bounds="-205.056562187755,1353.28756393507,99.3140510265951,90.8506815225276" From="KanbanTask.CreatorId" IsUnique="False" Label="1:*" LabelBounds="-170.822807067261,1381.27721166068,14.0733333333333,15.96" Name="KanbanTask -&gt; Member" To="Member.Id" />
+    <Link Source="Member" Target="Board" Category="Foreign Key" Annotations="" Bounds="157.478918903281,1347.21284716745,163.057429582397,175.626479638203" From="Member.BoardId" IsUnique="False" Label="1:*" LabelBounds="240.473321799808,1417.70529369663,14.0733333333333,15.96" Name="Member -&gt; Board" To="Board.Id" />
+    <Link Source="Member" Target="Member.Board" Category="Contains" />
+    <Link Source="Member" Target="Member.BoardId" Category="Contains" />
+    <Link Source="Member" Target="Member.CanAssign" Category="Contains" />
+    <Link Source="Member" Target="Member.CanComplete" Category="Contains" />
+    <Link Source="Member" Target="Member.CanCreate" Category="Contains" />
+    <Link Source="Member" Target="Member.Categories" Category="Contains" />
+    <Link Source="Member" Target="Member.Comments" Category="Contains" />
+    <Link Source="Member" Target="Member.Id" Category="Contains" />
+    <Link Source="Member" Target="Member.TasksAssigned" Category="Contains" />
+    <Link Source="Member" Target="Member.TasksCreated" Category="Contains" />
+    <Link Source="Member" Target="Member.User" Category="Contains" />
+    <Link Source="Member" Target="Member.UserId" Category="Contains" />
+    <Link Source="Member" Target="User" Category="Foreign Key" Annotations="" Bounds="251.0870360727,1227.26969927061,38.5591387684221,1.27235413033759" From="Member.UserId" IsUnique="False" Label="1:*" LabelBounds="263.395897836291,1207.94587574364,14.0733333333333,15.96" Name="Member -&gt; User" To="User.Id" />
+    <Link Source="User" Target="User.Boards" Category="Contains" />
+    <Link Source="User" Target="User.Id" Category="Contains" />
+    <Link Source="User" Target="User.IsAnon" Category="Contains" />
+    <Link Source="User" Target="User.Memberships" Category="Contains" />
+    <Link Source="User" Target="User.Name" Category="Contains" />
+    <Link Source="User" Target="User.Password" Category="Contains" />
+  </Links>
+  <Categories>
+    <Category Id="Contains" Label="Contains" Description="Whether the source of the link contains the target object" CanBeDataDriven="False" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Contained By" IsContainment="True" OutgoingActionLabel="Contains" />
+    <Category Id="EntityType" />
+    <Category Id="Foreign Key" />
+    <Category Id="Model" />
+    <Category Id="Navigation Collection" />
+    <Category Id="Navigation Property" />
+    <Category Id="Property Foreign" />
+    <Category Id="Property Optional" />
+    <Category Id="Property Primary" />
+    <Category Id="Property Required" />
+  </Categories>
+  <Properties>
+    <Property Id="AfterSaveBehavior" Group="Property Flags" DataType="System.String" />
+    <Property Id="Annotations" Description="Annotations" Group="Model Properties" DataType="System.String" />
+    <Property Id="BaseClass" Description="Base class" Group="Model Properties" DataType="System.String" />
+    <Property Id="BeforeSaveBehavior" Group="Property Flags" DataType="System.String" />
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="ChangeTrackingStrategy" Description="Change tracking strategy" Group="Model Properties" DataType="System.String" />
+    <Property Id="Dependent" Description="Dependent entity" Group="Model Properties" DataType="System.String" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="Field" Description="Backing field" Group="Model Properties" DataType="System.String" />
+    <Property Id="From" Description="Target property" Group="Model Properties" DataType="System.String" />
+    <Property Id="GraphDirection" DataType="Microsoft.VisualStudio.Diagrams.Layout.LayoutOrientation" />
+    <Property Id="Group" Label="Group" Description="Display the node as a group" DataType="Microsoft.VisualStudio.GraphModel.GraphGroupStyle" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="Inverse" Description="Inverse entity" Group="Model Properties" DataType="System.String" />
+    <Property Id="IsAbstract" Label="IsAbstract" Description="IsAbstract" Group="Model Properties" DataType="System.Boolean" />
+    <Property Id="IsAlternateKey" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsConcurrencyToken" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsContainment" DataType="System.Boolean" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="IsForeignKey" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsIndexed" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsPrimaryKey" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsRequired" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsShadow" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsUnicode" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsUnique" Group="Model Properties" DataType="System.Boolean" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="LabelBounds" DataType="System.Windows.Rect" />
+    <Property Id="MaxLength" DataType="System.String" />
+    <Property Id="Name" Group="Model Properties" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+    <Property Id="Principal" Description="Principal entity" Group="Model Properties" DataType="System.String" />
+    <Property Id="ProductVersion" Label="Product Version" Description="EF Core product version" Group="Model Properties" DataType="System.String" />
+    <Property Id="PropertyAccessMode" Group="Property Flags" DataType="System.String" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="To" Description="Source property" Group="Model Properties" DataType="System.String" />
+    <Property Id="Type" Description="CLR data type" Group="Model Properties" DataType="System.String" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueGenerated" Group="Property Flags" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+  </Properties>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="EntityType" ValueLabel="True">
+      <Condition Expression="HasCategory('EntityType')" />
+      <Setter Property="Background" Value="#FFC0C0C0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Primary" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Primary')" />
+      <Setter Property="Background" Value="#FF008000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Optional" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Optional')" />
+      <Setter Property="Background" Value="#FF808040" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Foreign" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Foreign')" />
+      <Setter Property="Background" Value="#FF8080FF" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Required" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Required')" />
+      <Setter Property="Background" Value="#FFC0A000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Navigation Property" ValueLabel="True">
+      <Condition Expression="HasCategory('Navigation Property')" />
+      <Setter Property="Background" Value="#FF990000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Navigation Collection" ValueLabel="True">
+      <Condition Expression="HasCategory('Navigation Collection')" />
+      <Setter Property="Background" Value="#FFFF3232" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Model" ValueLabel="True">
+      <Condition Expression="HasCategory('Model')" />
+      <Setter Property="Background" Value="#FFFFFFFF" />
+    </Style>
+  </Styles>
+</DirectedGraph>

@@ -23,10 +23,11 @@ namespace KanbanWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
+
             return await _context.Users.ToListAsync();
         }
 
@@ -34,10 +35,10 @@ namespace KanbanWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
             var user = await _context.Users.FindAsync(id);
 
             if (user == null)
@@ -46,6 +47,18 @@ namespace KanbanWebApi.Controllers
             }
 
             return user;
+        }
+
+        // GET: api/Users/string
+        [HttpGet("{username}")]
+        public async Task<ActionResult<bool>> CheckUsername(string username)
+        {
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
+
+            return await _context.Users.AnyAsync(u => u.Name == username);
         }
 
         // PUT: api/Users/5
@@ -84,10 +97,10 @@ namespace KanbanWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-          if (_context.Users == null)
-          {
-              return Problem("Entity set 'KanbanDBContext.Users'  is null.");
-          }
+            if (_context.Users == null)
+            {
+                return Problem("Entity set 'KanbanDBContext.Users'  is null.");
+            }
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 

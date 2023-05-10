@@ -38,6 +38,9 @@ namespace KanbanWebApi.DB
                 .WithOne(b => b.Owner)
                 .HasForeignKey(b => b.OwnerId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
         }
     }
 }

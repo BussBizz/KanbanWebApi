@@ -23,10 +23,13 @@ namespace KanbanWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<KanbanTask>>> GetKanbanTasks()
         {
-          if (_context.KanbanTasks == null)
-          {
-              return NotFound();
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.KanbanTasks == null)
+            {
+                return NotFound();
+            }
             return await _context.KanbanTasks.ToListAsync();
         }
 
@@ -34,10 +37,13 @@ namespace KanbanWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<KanbanTask>> GetKanbanTask(int id)
         {
-          if (_context.KanbanTasks == null)
-          {
-              return NotFound();
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.KanbanTasks == null)
+            {
+                return NotFound();
+            }
             var kanbanTask = await _context.KanbanTasks.FindAsync(id);
 
             if (kanbanTask == null)
@@ -53,6 +59,9 @@ namespace KanbanWebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutKanbanTask(int id, KanbanTask kanbanTask)
         {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
             if (id != kanbanTask.Id)
             {
                 return BadRequest();
@@ -84,10 +93,13 @@ namespace KanbanWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<KanbanTask>> PostKanbanTask(KanbanTask kanbanTask)
         {
-          if (_context.KanbanTasks == null)
-          {
-              return Problem("Entity set 'KanbanDBContext.KanbanTasks'  is null.");
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.KanbanTasks == null)
+            {
+                return Problem("Entity set 'KanbanDBContext.KanbanTasks'  is null.");
+            }
             _context.KanbanTasks.Add(kanbanTask);
             await _context.SaveChangesAsync();
 
@@ -98,6 +110,9 @@ namespace KanbanWebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteKanbanTask(int id)
         {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
             if (_context.KanbanTasks == null)
             {
                 return NotFound();

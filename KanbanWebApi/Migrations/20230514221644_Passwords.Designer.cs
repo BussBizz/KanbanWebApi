@@ -4,6 +4,7 @@ using KanbanWebApi.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KanbanWebApi.Migrations
 {
     [DbContext(typeof(KanbanDBContext))]
-    partial class KanbanDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230514221644_Passwords")]
+    partial class Passwords
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,6 +195,10 @@ namespace KanbanWebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -217,6 +224,9 @@ namespace KanbanWebApi.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("PasswordId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -312,7 +322,7 @@ namespace KanbanWebApi.Migrations
             modelBuilder.Entity("KanbanWebApi.Models.Password", b =>
                 {
                     b.HasOne("KanbanWebApi.Models.User", "User")
-                        .WithOne()
+                        .WithOne("Password")
                         .HasForeignKey("KanbanWebApi.Models.Password", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -353,6 +363,9 @@ namespace KanbanWebApi.Migrations
                     b.Navigation("Boards");
 
                     b.Navigation("Memberships");
+
+                    b.Navigation("Password")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

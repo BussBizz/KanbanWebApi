@@ -23,10 +23,13 @@ namespace KanbanWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Member>>> GetMembers()
         {
-          if (_context.Members == null)
-          {
-              return NotFound();
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Members == null)
+            {
+                return NotFound();
+            }
             return await _context.Members.ToListAsync();
         }
 
@@ -34,10 +37,13 @@ namespace KanbanWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Member>> GetMember(int id)
         {
-          if (_context.Members == null)
-          {
-              return NotFound();
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Members == null)
+            {
+                return NotFound();
+            }
             var member = await _context.Members.FindAsync(id);
 
             if (member == null)
@@ -53,6 +59,9 @@ namespace KanbanWebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMember(int id, Member member)
         {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
             if (id != member.Id)
             {
                 return BadRequest();
@@ -84,10 +93,13 @@ namespace KanbanWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Member>> PostMember(Member member)
         {
-          if (_context.Members == null)
-          {
-              return Problem("Entity set 'KanbanDBContext.Members'  is null.");
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Members == null)
+            {
+                return Problem("Entity set 'KanbanDBContext.Members'  is null.");
+            }
             _context.Members.Add(member);
             await _context.SaveChangesAsync();
 
@@ -98,6 +110,9 @@ namespace KanbanWebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMember(int id)
         {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
             if (_context.Members == null)
             {
                 return NotFound();

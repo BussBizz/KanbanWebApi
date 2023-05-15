@@ -6,8 +6,6 @@ namespace KanbanWebApi.Models
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-        public string Password { get; set; } = null!;
-        public string Salt { get; set; } = null!;
         public bool IsAnon { get; set; } = true;
 
         // Collection prop

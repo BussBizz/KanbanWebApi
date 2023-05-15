@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KanbanWebApi.DB;
 using KanbanWebApi.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
 
 namespace KanbanWebApi.Controllers
 {
@@ -23,10 +25,13 @@ namespace KanbanWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Board>>> GetBoards()
         {
-          if (_context.Boards == null)
-          {
-              return NotFound();
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Boards == null)
+            {
+                return NotFound();
+            }
             return await _context.Boards.ToListAsync();
         }
 
@@ -34,10 +39,13 @@ namespace KanbanWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Board>> GetBoard(int id)
         {
-          if (_context.Boards == null)
-          {
-              return NotFound();
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Boards == null)
+            {
+                return NotFound();
+            }
             var board = await _context.Boards.FindAsync(id);
 
             if (board == null)
@@ -53,6 +61,9 @@ namespace KanbanWebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBoard(int id, Board board)
         {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
             if (id != board.Id)
             {
                 return BadRequest();
@@ -84,10 +95,13 @@ namespace KanbanWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Board>> PostBoard(Board board)
         {
-          if (_context.Boards == null)
-          {
-              return Problem("Entity set 'KanbanDBContext.Boards'  is null.");
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Boards == null)
+            {
+                return Problem("Entity set 'KanbanDBContext.Boards'  is null.");
+            }
             _context.Boards.Add(board);
             await _context.SaveChangesAsync();
 
@@ -98,6 +112,9 @@ namespace KanbanWebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBoard(int id)
         {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
             if (_context.Boards == null)
             {
                 return NotFound();

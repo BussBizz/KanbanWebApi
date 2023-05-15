@@ -33,6 +33,27 @@ namespace KanbanWebApi.Controllers
             return await _context.Members.ToListAsync();
         }
 
+        // GET: api/Members/user/5
+        [HttpGet("user/{id}")]
+        public async Task<ActionResult<IEnumerable<Member>>> GetMembershipsByUser(int id)
+        {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Members == null)
+            {
+                return NotFound();
+            }
+
+            var memberships = await _context.Members
+                .Where(m => m.UserId == id)
+                .Include(m => m.Board)
+                .Include(m => m.TasksAssigned)
+                .ToListAsync();
+
+            return CycleHandler(memberships);
+        }
+
         // GET: api/Members/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Member>> GetMember(int id)

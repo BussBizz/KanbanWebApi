@@ -33,6 +33,26 @@ namespace KanbanWebApi.Controllers
             return await _context.Categories.ToListAsync();
         }
 
+        // GET: api/Categories
+        [HttpGet("board/{boardId}")]
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategoriesByBoard(int boardId)
+        {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Categories == null)
+            {
+                return NotFound();
+            }
+
+            var categories = await _context.Categories
+                .Where(c => c.BoardId == boardId)
+                .Include(c => c.KanbanTasks)
+                .ToListAsync();
+
+            return categories;
+        }
+
         // GET: api/Categories/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> GetCategory(int id)

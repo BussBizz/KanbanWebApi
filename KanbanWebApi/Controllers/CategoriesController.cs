@@ -23,10 +23,13 @@ namespace KanbanWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-          if (_context.Categories == null)
-          {
-              return NotFound();
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Categories == null)
+            {
+                return NotFound();
+            }
             return await _context.Categories.ToListAsync();
         }
 
@@ -34,10 +37,13 @@ namespace KanbanWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> GetCategory(int id)
         {
-          if (_context.Categories == null)
-          {
-              return NotFound();
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Categories == null)
+            {
+                return NotFound();
+            }
             var category = await _context.Categories.FindAsync(id);
 
             if (category == null)
@@ -53,6 +59,9 @@ namespace KanbanWebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCategory(int id, Category category)
         {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
             if (id != category.Id)
             {
                 return BadRequest();
@@ -84,10 +93,13 @@ namespace KanbanWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Category>> PostCategory(Category category)
         {
-          if (_context.Categories == null)
-          {
-              return Problem("Entity set 'KanbanDBContext.Categories'  is null.");
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Categories == null)
+            {
+                return Problem("Entity set 'KanbanDBContext.Categories'  is null.");
+            }
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 
@@ -98,6 +110,9 @@ namespace KanbanWebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
             if (_context.Categories == null)
             {
                 return NotFound();

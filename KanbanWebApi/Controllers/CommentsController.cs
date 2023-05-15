@@ -23,10 +23,13 @@ namespace KanbanWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
         {
-          if (_context.Comments == null)
-          {
-              return NotFound();
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Comments == null)
+            {
+                return NotFound();
+            }
             return await _context.Comments.ToListAsync();
         }
 
@@ -34,10 +37,13 @@ namespace KanbanWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetComment(int id)
         {
-          if (_context.Comments == null)
-          {
-              return NotFound();
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Comments == null)
+            {
+                return NotFound();
+            }
             var comment = await _context.Comments.FindAsync(id);
 
             if (comment == null)
@@ -53,6 +59,9 @@ namespace KanbanWebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutComment(int id, Comment comment)
         {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
             if (id != comment.Id)
             {
                 return BadRequest();
@@ -84,10 +93,13 @@ namespace KanbanWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Comment>> PostComment(Comment comment)
         {
-          if (_context.Comments == null)
-          {
-              return Problem("Entity set 'KanbanDBContext.Comments'  is null.");
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Comments == null)
+            {
+                return Problem("Entity set 'KanbanDBContext.Comments'  is null.");
+            }
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
 
@@ -98,6 +110,9 @@ namespace KanbanWebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComment(int id)
         {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
             if (_context.Comments == null)
             {
                 return NotFound();

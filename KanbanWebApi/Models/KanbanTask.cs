@@ -8,7 +8,7 @@
         public DateTime? Deadline { get; set; }
 
         // FK
-        public int CatergoryId { get; set; }
+        public int CategoryId { get; set; }
         public int? CreatorId { get; set; }
         public int? AssingedId { get; set; }
 

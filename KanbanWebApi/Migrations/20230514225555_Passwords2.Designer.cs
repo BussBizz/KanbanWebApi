@@ -4,6 +4,7 @@ using KanbanWebApi.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KanbanWebApi.Migrations
 {
     [DbContext(typeof(KanbanDBContext))]
-    partial class KanbanDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230514225555_Passwords2")]
+    partial class Passwords2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,7 +121,10 @@ namespace KanbanWebApi.Migrations
                     b.Property<int?>("AssingedId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CatergoryId")
                         .HasColumnType("int");
 
                     b.Property<int?>("CreatorId")
@@ -186,6 +192,10 @@ namespace KanbanWebApi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Hash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Salt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -274,9 +284,7 @@ namespace KanbanWebApi.Migrations
 
                     b.HasOne("KanbanWebApi.Models.Category", "Category")
                         .WithMany("KanbanTasks")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("KanbanWebApi.Models.Member", "Creator")
                         .WithMany("TasksCreated")

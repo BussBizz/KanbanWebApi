@@ -1,10 +1,11 @@
-﻿namespace KanbanWebApi.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace KanbanWebApi.Models
 {
     public class User
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-        public string? Password { get; set; }
         public bool IsAnon { get; set; } = true;
 
         // Collection prop

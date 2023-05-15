@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KanbanWebApi.DB;
 using KanbanWebApi.Models;
+using DevOne.Security.Cryptography.BCrypt;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace KanbanWebApi.Controllers
 {
@@ -23,10 +26,13 @@ namespace KanbanWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
             return await _context.Users.ToListAsync();
         }
 
@@ -34,10 +40,13 @@ namespace KanbanWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
             var user = await _context.Users.FindAsync(id);
 
             if (user == null)
@@ -53,6 +62,9 @@ namespace KanbanWebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id, User user)
         {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
             if (id != user.Id)
             {
                 return BadRequest();
@@ -82,22 +94,30 @@ namespace KanbanWebApi.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<User>> PostUser(Password password)
         {
-          if (_context.Users == null)
-          {
-              return Problem("Entity set 'KanbanDBContext.Users'  is null.");
-          }
-            _context.Users.Add(user);
+            if (_context.Users == null || _context.Passwords == null)
+            {
+                return Problem("Entity set 'KanbanDBContext.Users'  is null.");
+            }
+
+            var salt = BCryptHelper.GenerateSalt();
+            password.Hash = BCryptHelper.HashPassword(password.Hash, salt);
+
+            _context.Users.Add(password.User);
+            _context.Passwords.Add(password);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetUser", new { id = password.User.Id }, password.User);
         }
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
             if (_context.Users == null)
             {
                 return NotFound();

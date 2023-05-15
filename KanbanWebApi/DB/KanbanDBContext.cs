@@ -14,6 +14,7 @@ namespace KanbanWebApi.DB
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Comment> Comments { get; set; } = null!;
         public DbSet<KanbanTask> KanbanTasks { get; set; } = null!;
+        public DbSet<Password> Passwords { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,6 +39,11 @@ namespace KanbanWebApi.DB
                 .WithOne(b => b.Owner)
                 .HasForeignKey(b => b.OwnerId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
+            modelBuilder.Entity<User>().HasOne<Password>()
+                .WithOne(p => p.User);
         }
     }
 }

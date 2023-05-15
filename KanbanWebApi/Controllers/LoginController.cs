@@ -16,7 +16,7 @@ namespace KanbanWebApi.Controllers
             _context = context;
         }
 
-        [HttpGet("{username}")]
+        [HttpGet("{username}/check")]
         public async Task<ActionResult<bool>> CheckUsername(string username)
         {
             if (username == null || _context.Users == null) return NotFound();
@@ -27,22 +27,12 @@ namespace KanbanWebApi.Controllers
         }
 
         // TODO Use Auth header mayby, hotel trivago?
-        [HttpGet("{username}/{password}")]
-        public async Task<ActionResult> Login(string username, string password)
+        [HttpGet("{username}")]
+        public async Task<ActionResult<User>> Login(string username)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) return NotFound(); 
-
-            var user = await _context.Users.Where(u => u.Name == username).FirstOrDefaultAsync();
-
-            if (user == null) return NotFound();
-
-            var pwd = await _context.Passwords.Where(p => p.UserId == user.Id).FirstOrDefaultAsync();
-
-            if (pwd == null) return NotFound();
-
-            if (BCryptHelper.CheckPassword(password, pwd.Hash))
+            if(!string.IsNullOrEmpty(username) && await Authenticate(_context))
             {
-                return Ok();
+                return await _context.Users.Where(u => u.Name == username).FirstOrDefaultAsync();
             }
 
             return BadRequest();

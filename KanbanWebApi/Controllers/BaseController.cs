@@ -3,6 +3,7 @@ using KanbanWebApi.DB;
 using KanbanWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Text;
 
@@ -16,7 +17,7 @@ namespace KanbanWebApi.Controllers
         public async Task<bool> Authenticate(KanbanDBContext context)
         {
             string? authHeader = HttpContext.Request.Headers["Authorization"];
-            
+
             if (authHeader == null || !authHeader.StartsWith("Basic"))
                 throw new Exception("The authorization header is either empty or isn't Basic.");
 
@@ -27,14 +28,23 @@ namespace KanbanWebApi.Controllers
 
             int seperatorIndex = usernamePassword.IndexOf(':');
 
-            var passwordId = usernamePassword.Substring(0, seperatorIndex);
+            var username = usernamePassword.Substring(0, seperatorIndex);
             var password = usernamePassword.Substring(seperatorIndex + 1);
 
-            Password pwd = await context.Passwords.FindAsync(passwordId) ?? throw new Exception("Error checking password.");
+            var user = await context.Users.Where(u => u.Name == username).FirstOrDefaultAsync();
 
-            var result = BCryptHelper.CheckPassword(password, pwd.Hash);
+            if (user == null) return false;
 
-            return result;
+            var pwd = await context.Passwords.Where(p => p.UserId == user.Id).FirstOrDefaultAsync();
+            
+            if (pwd == null) return false;
+
+            if (BCryptHelper.CheckPassword(password, pwd.Hash))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

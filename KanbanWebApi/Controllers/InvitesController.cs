@@ -54,6 +54,26 @@ namespace KanbanWebApi.Controllers
             return CycleHandler(result);
         }
 
+        // GET: api/Invites/board/4
+        [HttpGet("board/{boardId}")]
+        public async Task<ActionResult<IEnumerable<Invite>>> GetInvitesByBoard(int boardId)
+        {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Invites == null)
+            {
+                return NotFound();
+            }
+
+            var result = await _context.Invites
+                .Where(i => i.BoardId == boardId)
+                .Include(i => i.User)
+                .ToListAsync();
+
+            return CycleHandler(result);
+        }
+
         // GET: api/Invites/code/JKRS2K
         [HttpGet("code/{code}")]
         public async Task<ActionResult<Invite>> GetInviteByCode(string code)

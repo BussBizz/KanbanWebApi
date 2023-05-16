@@ -54,6 +54,26 @@ namespace KanbanWebApi.Controllers
             return CycleHandler(memberships);
         }
 
+        // GET: api/Members/board/5
+        [HttpGet("board/{boardId}")]
+        public async Task<ActionResult<IEnumerable<Member>>> GetMembershipsByBoard(int boardId)
+        {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Members == null)
+            {
+                return NotFound();
+            }
+
+            var memberships = await _context.Members
+                .Where(m => m.BoardId == boardId)
+                .Include(m => m.User)
+                .ToListAsync();
+
+            return CycleHandler(memberships);
+        }
+
         // GET: api/Members/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Member>> GetMember(int id)

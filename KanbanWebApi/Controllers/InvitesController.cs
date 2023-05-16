@@ -33,6 +33,48 @@ namespace KanbanWebApi.Controllers
             return await _context.Invites.ToListAsync();
         }
 
+        // GET: api/Invites/user/4
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<IEnumerable<Invite>>> GetInvitesByUser(int userId)
+        {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Invites == null)
+            {
+                return NotFound();
+            }
+
+            var result = await _context.Invites
+                .Where(i => i.UserId == userId)
+                .Where(i => i.Expire > DateTime.Now)
+                .Include(i => i.Board)
+                .ToListAsync();
+
+            return CycleHandler(result);
+        }
+
+        // GET: api/Invites/code/JKRS2K
+        [HttpGet("code/{code}")]
+        public async Task<ActionResult<Invite>> GetInviteByCode(string code)
+        {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Invites == null)
+            {
+                return NotFound();
+            }
+
+            var result = await _context.Invites
+                .Where(i => i.Code == code)
+                .Where(i => i.Expire > DateTime.Now)
+                .Include(i => i.Board)
+                .FirstOrDefaultAsync();
+
+            return CycleHandler(result);
+        }
+
         // GET: api/Invites/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Invite>> GetInvite(int id)

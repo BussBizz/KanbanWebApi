@@ -3,14 +3,15 @@
     public class Invite
     {
         public int Id { get; set; }
-        public string Code { get; set; } = null!;
+        public string? Code { get; set; }
+        public DateTime? Expire { get; set; }
 
         // FK
         public int? UserId { get; set; }
-        public string BoardId { get; set; } = null!;
+        public int BoardId { get; set; }
 
         // Navigation prop
         public User? User { get; set; }
-        public Board Board { get; set; } = null!;
+        public Board? Board { get; set; }
     }
 }

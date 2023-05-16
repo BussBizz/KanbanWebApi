@@ -13,6 +13,7 @@ namespace KanbanWebApi.DB
         public DbSet<Board> Boards { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Comment> Comments { get; set; } = null!;
+        public DbSet<Invite> Invites { get; set; }
         public DbSet<KanbanTask> KanbanTasks { get; set; } = null!;
         public DbSet<Password> Passwords { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;

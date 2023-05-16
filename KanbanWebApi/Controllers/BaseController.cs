@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace KanbanWebApi.Controllers
 {
@@ -13,6 +15,19 @@ namespace KanbanWebApi.Controllers
     [Route("api/[controller]")]
     public class BaseController : ControllerBase
     {
+        public T CycleHandler<T>(T obj)
+        {
+            // TODO Hack.... Grimt.... Find bedre løsning. Men virker for nu.
+            JsonSerializerOptions opt = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.IgnoreCycles
+            };
+
+            var result = JsonSerializer.Serialize(obj, opt);
+
+            return JsonSerializer.Deserialize<T>(result);
+        }
+
         [NonAction]
         public async Task<bool> Authenticate(KanbanDBContext context)
         {

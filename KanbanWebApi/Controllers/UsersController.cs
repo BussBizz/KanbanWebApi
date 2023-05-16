@@ -57,6 +57,27 @@ namespace KanbanWebApi.Controllers
             return user;
         }
 
+        // GET: api/Users/username
+        [HttpGet("name/{username}")]
+        public async Task<ActionResult<User>> GetUserIdFromName(string username)
+        {
+#if RELEASE
+            if (!await Authenticate(_context)) return BadRequest();
+#endif
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
+            var user = await _context.Users.Where(u => u.Name == username).FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
+        }
+
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

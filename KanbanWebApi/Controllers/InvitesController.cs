@@ -78,9 +78,6 @@ namespace KanbanWebApi.Controllers
         [HttpGet("code/{code}")]
         public async Task<ActionResult<Invite>> GetInviteByCode(string code)
         {
-#if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
-#endif
             if (_context.Invites == null)
             {
                 return NotFound();
@@ -100,7 +97,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<Invite>> GetInvite(int id)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Invites == null)
             {
@@ -122,7 +119,7 @@ namespace KanbanWebApi.Controllers
         public async Task<IActionResult> PutInvite(int id, Invite invite)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (id != invite.Id)
             {
@@ -156,7 +153,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<Invite>> PostInvite(Invite invite)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Invites == null)
             {
@@ -173,7 +170,7 @@ namespace KanbanWebApi.Controllers
         public async Task<IActionResult> DeleteInvite(int id)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Invites == null)
             {

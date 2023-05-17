@@ -24,7 +24,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Comments == null)
             {
@@ -38,7 +38,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<Comment>> GetComment(int id)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Comments == null)
             {
@@ -60,7 +60,7 @@ namespace KanbanWebApi.Controllers
         public async Task<IActionResult> PutComment(int id, Comment comment)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (id != comment.Id)
             {
@@ -94,7 +94,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<Comment>> PostComment(Comment comment)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Comments == null)
             {
@@ -111,7 +111,7 @@ namespace KanbanWebApi.Controllers
         public async Task<IActionResult> DeleteComment(int id)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Comments == null)
             {

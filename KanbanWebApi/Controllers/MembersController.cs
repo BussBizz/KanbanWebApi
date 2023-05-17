@@ -24,7 +24,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<IEnumerable<Member>>> GetMembers()
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Members == null)
             {
@@ -38,7 +38,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<IEnumerable<Member>>> GetMembershipsByUser(int id)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Members == null)
             {
@@ -59,7 +59,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<IEnumerable<Member>>> GetMembershipsByBoard(int boardId)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Members == null)
             {
@@ -79,7 +79,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<Member>> GetMember(int id)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Members == null)
             {
@@ -101,7 +101,7 @@ namespace KanbanWebApi.Controllers
         public async Task<IActionResult> PutMember(int id, Member member)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (id != member.Id)
             {
@@ -135,7 +135,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<Member>> PostMember(Member member)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Members == null)
             {
@@ -152,7 +152,7 @@ namespace KanbanWebApi.Controllers
         public async Task<IActionResult> DeleteMember(int id)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Members == null)
             {

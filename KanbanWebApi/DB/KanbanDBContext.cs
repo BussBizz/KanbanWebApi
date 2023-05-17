@@ -16,6 +16,7 @@ namespace KanbanWebApi.DB
         public DbSet<Invite> Invites { get; set; }
         public DbSet<KanbanTask> KanbanTasks { get; set; } = null!;
         public DbSet<Password> Passwords { get; set; } = null!;
+        public DbSet<Token> Tokens { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

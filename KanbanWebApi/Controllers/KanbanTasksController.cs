@@ -24,7 +24,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<IEnumerable<KanbanTask>>> GetKanbanTasks()
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.KanbanTasks == null)
             {
@@ -38,7 +38,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<KanbanTask>> GetKanbanTask(int id)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.KanbanTasks == null)
             {
@@ -60,7 +60,7 @@ namespace KanbanWebApi.Controllers
         public async Task<IActionResult> PutKanbanTask(int id, KanbanTask kanbanTask)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (id != kanbanTask.Id)
             {
@@ -94,7 +94,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<KanbanTask>> PostKanbanTask(KanbanTask kanbanTask)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.KanbanTasks == null)
             {
@@ -111,7 +111,7 @@ namespace KanbanWebApi.Controllers
         public async Task<IActionResult> DeleteKanbanTask(int id)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.KanbanTasks == null)
             {

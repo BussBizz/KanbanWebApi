@@ -31,35 +31,37 @@ namespace KanbanWebApi.Controllers
         [NonAction]
         public async Task<bool> Authenticate(KanbanDBContext context)
         {
-            string? authHeader = HttpContext.Request.Headers["Authorization"];
+            var bearerToken = ExtractToken();
+            if (bearerToken == null) return false;
 
-            if (authHeader == null || !authHeader.StartsWith("Basic"))
-                throw new Exception("The authorization header is either empty or isn't Basic.");
+            var tokenEntity = await context.Tokens.Where(t => t.Id == bearerToken.Id).FirstOrDefaultAsync(t => t.Expire > DateTime.Now);
+            if (tokenEntity == null) return false;
 
-            string encodedUsernamePassword = authHeader.Substring("Basic ".Length).Trim();
-
-            Encoding encoding = Encoding.GetEncoding("iso-8859-1");
-            string usernamePassword = encoding.GetString(Convert.FromBase64String(encodedUsernamePassword));
-
-            int seperatorIndex = usernamePassword.IndexOf(':');
-
-            var username = usernamePassword.Substring(0, seperatorIndex);
-            var password = usernamePassword.Substring(seperatorIndex + 1);
-
-            var user = await context.Users.Where(u => u.Name == username).FirstOrDefaultAsync();
-
-            if (user == null) return false;
-
-            var pwd = await context.Passwords.Where(p => p.UserId == user.Id).FirstOrDefaultAsync();
-            
-            if (pwd == null) return false;
-
-            if (BCryptHelper.CheckPassword(password, pwd.Hash))
+            if (BCryptHelper.CheckPassword(bearerToken.Token, tokenEntity.Hash))
             {
+                tokenEntity.Expire = DateTime.Now.AddDays(30);
+                context.Update(tokenEntity);
+                await context.SaveChangesAsync();
                 return true;
             }
 
             return false;
+        }
+
+        [NonAction]
+        public BearerToken? ExtractToken()
+        {
+            string? authHeader = HttpContext.Request.Headers["Authorization"];
+
+            if (authHeader == null || !authHeader.StartsWith("Bearer"))
+                return null;
+
+            string encodedUsernamePassword = authHeader.Substring("Bearer ".Length).Trim();
+
+            Encoding encoding = Encoding.GetEncoding("iso-8859-1");
+            var tokenString = encoding.GetString(Convert.FromBase64String(encodedUsernamePassword));
+
+            return JsonSerializer.Deserialize<BearerToken>(tokenString);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Categories == null)
             {
@@ -38,7 +38,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<IEnumerable<Category>>> GetCategoriesByBoard(int boardId)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Categories == null)
             {
@@ -58,7 +58,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<Category>> GetCategory(int id)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Categories == null)
             {
@@ -80,7 +80,7 @@ namespace KanbanWebApi.Controllers
         public async Task<IActionResult> PutCategory(int id, Category category)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (id != category.Id)
             {
@@ -114,7 +114,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<Category>> PostCategory(Category category)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Categories == null)
             {
@@ -131,7 +131,7 @@ namespace KanbanWebApi.Controllers
         public async Task<IActionResult> DeleteCategory(int id)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Categories == null)
             {

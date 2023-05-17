@@ -27,7 +27,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Users == null)
             {
@@ -41,7 +41,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<User>> GetUser(int id)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Users == null)
             {
@@ -62,7 +62,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<User>> GetUserIdFromName(string username)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Users == null)
             {
@@ -84,7 +84,7 @@ namespace KanbanWebApi.Controllers
         public async Task<IActionResult> PutUser(int id, User user)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (id != user.Id)
             {
@@ -112,6 +112,17 @@ namespace KanbanWebApi.Controllers
             return NoContent();
         }
 
+        // GET: check/username
+        [HttpGet("check/{username}")]
+        public async Task<ActionResult<bool>> CheckUsername(string username)
+        {
+            if (username == null || _context.Users == null) return NotFound();
+
+            var nameExists = await _context.Users.AnyAsync(u => u.Name == username);
+
+            return nameExists;
+        }
+
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -125,11 +136,10 @@ namespace KanbanWebApi.Controllers
             var salt = BCryptHelper.GenerateSalt();
             password.Hash = BCryptHelper.HashPassword(password.Hash, salt);
 
-            _context.Users.Add(password.User);
             _context.Passwords.Add(password);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = password.User.Id }, password.User);
+            return CreatedAtAction("GetUser", new { id = password.User.Id }, CycleHandler(password.User));
         }
 
         // DELETE: api/Users/5
@@ -137,7 +147,7 @@ namespace KanbanWebApi.Controllers
         public async Task<IActionResult> DeleteUser(int id)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Users == null)
             {

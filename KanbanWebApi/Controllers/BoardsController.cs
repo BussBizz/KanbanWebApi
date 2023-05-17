@@ -26,7 +26,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<IEnumerable<Board>>> GetBoards()
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Boards == null)
             {
@@ -40,7 +40,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<Board>> GetBoard(int id)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Boards == null)
             {
@@ -62,7 +62,7 @@ namespace KanbanWebApi.Controllers
         public async Task<IActionResult> PutBoard(int id, Board board)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (id != board.Id)
             {
@@ -96,7 +96,7 @@ namespace KanbanWebApi.Controllers
         public async Task<ActionResult<Board>> PostBoard(Board board)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Boards == null)
             {
@@ -113,7 +113,7 @@ namespace KanbanWebApi.Controllers
         public async Task<IActionResult> DeleteBoard(int id)
         {
 #if RELEASE
-            if (!await Authenticate(_context)) return BadRequest();
+            if (!await Authenticate(_context)) return Unauthorized();
 #endif
             if (_context.Boards == null)
             {

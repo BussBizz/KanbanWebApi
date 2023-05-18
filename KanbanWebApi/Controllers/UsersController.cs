@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using DevOne.Security.Cryptography.BCrypt;
 using KanbanWebApi.DB;
 using KanbanWebApi.Models;
-using DevOne.Security.Cryptography.BCrypt;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace KanbanWebApi.Controllers
 {
@@ -139,7 +132,7 @@ namespace KanbanWebApi.Controllers
             _context.Passwords.Add(password);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = password.User.Id }, CycleHandler(password.User));
+            return CreatedAtAction("GetUser", new { id = password.User.Id }, password.User);
         }
 
         // DELETE: api/Users/5

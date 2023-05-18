@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using KanbanWebApi.DB;
+using KanbanWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using KanbanWebApi.DB;
-using KanbanWebApi.Models;
 
 namespace KanbanWebApi.Controllers
 {
@@ -45,6 +40,31 @@ namespace KanbanWebApi.Controllers
                 return NotFound();
             }
             var comment = await _context.Comments.FindAsync(id);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            return comment;
+        }
+
+        // GET: api/Comments/task/5
+        [HttpGet("task/{id}")]
+        public async Task<ActionResult<IEnumerable<Comment>>> GetCommentsByTask(int id)
+        {
+#if RELEASE
+            if (!await Authenticate(_context)) return Unauthorized();
+#endif
+            if (_context.Comments == null)
+            {
+                return NotFound();
+            }
+            var comment = await _context.Comments
+                .Where(c => c.KanbanTaskId == id)
+                .Include(c => c.Member)
+                .ThenInclude(m => m.User)
+                .ToListAsync();
 
             if (comment == null)
             {

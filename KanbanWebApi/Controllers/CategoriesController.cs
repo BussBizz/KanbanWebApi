@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using KanbanWebApi.DB;
+using KanbanWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using KanbanWebApi.DB;
-using KanbanWebApi.Models;
 
 namespace KanbanWebApi.Controllers
 {
@@ -48,6 +43,11 @@ namespace KanbanWebApi.Controllers
             var categories = await _context.Categories
                 .Where(c => c.BoardId == boardId)
                 .Include(c => c.KanbanTasks)
+                .ThenInclude(t => t.Creator)
+                .ThenInclude(c => c.User)
+                .Include(c => c.KanbanTasks)
+                .ThenInclude(t => t.Assigned)
+                .ThenInclude(c => c.User)
                 .ToListAsync();
 
             return categories;

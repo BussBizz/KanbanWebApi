@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using KanbanWebApi.DB;
+using KanbanWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using KanbanWebApi.DB;
-using KanbanWebApi.Models;
 
 namespace KanbanWebApi.Controllers
 {
@@ -51,7 +46,7 @@ namespace KanbanWebApi.Controllers
                 .Include(i => i.Board)
                 .ToListAsync();
 
-            return CycleHandler(result);
+            return result;
         }
 
         // GET: api/Invites/board/4
@@ -71,7 +66,7 @@ namespace KanbanWebApi.Controllers
                 .Include(i => i.User)
                 .ToListAsync();
 
-            return CycleHandler(result);
+            return result;
         }
 
         // GET: api/Invites/code/JKRS2K
@@ -89,7 +84,7 @@ namespace KanbanWebApi.Controllers
                 .Include(i => i.Board)
                 .FirstOrDefaultAsync();
 
-            return CycleHandler(result);
+            return result;
         }
 
         // GET: api/Invites/5

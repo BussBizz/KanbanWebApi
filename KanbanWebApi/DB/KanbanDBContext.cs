@@ -27,7 +27,7 @@ namespace KanbanWebApi.DB
                 .OnDelete(DeleteBehavior.ClientSetNull);
             modelBuilder.Entity<Member>().HasMany(m => m.TasksAssigned)
                 .WithOne(ta => ta.Assigned)
-                .HasForeignKey(ta => ta.AssingedId)
+                .HasForeignKey(ta => ta.AssignedId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
             modelBuilder.Entity<Member>().HasMany(m => m.Comments)
                 .WithOne(c => c.Member)

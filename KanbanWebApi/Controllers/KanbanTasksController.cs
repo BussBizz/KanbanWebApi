@@ -54,6 +54,91 @@ namespace KanbanWebApi.Controllers
             return kanbanTask;
         }
 
+        // GET: api/KanbanTasks/5/complete/5
+        [HttpGet("{taskId}/complete/{memberId}")]
+        public async Task<ActionResult<KanbanTask>> CompleteKanbanTask(int taskId, int memberId)
+        {
+#if RELEASE
+            if (!await Authenticate(_context)) return Unauthorized();
+#endif
+            if (_context.KanbanTasks == null || memberId == 0)
+            {
+                return NotFound();
+            }
+
+            var kanbanTask = await _context.KanbanTasks.FindAsync(taskId);
+
+            if (kanbanTask == null)
+            {
+                return NotFound();
+            }
+
+            kanbanTask.TaskCompleted = true;
+            kanbanTask.CompletedById = memberId;
+
+            _context.Entry(kanbanTask).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!KanbanTaskExists(taskId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return kanbanTask;
+        }
+
+        // GET: api/KanbanTasks/5/assign/5
+        [HttpGet("{taskId}/assign/{memberId}")]
+        public async Task<ActionResult<KanbanTask>> AssignKanbanTask(int taskId, int memberId)
+        {
+#if RELEASE
+            if (!await Authenticate(_context)) return Unauthorized();
+#endif
+            if (_context.KanbanTasks == null || memberId == 0)
+            {
+                return NotFound();
+            }
+
+            var kanbanTask = await _context.KanbanTasks.FindAsync(taskId);
+
+            if (kanbanTask == null)
+            {
+                return NotFound();
+            }
+
+            kanbanTask.AssignedId = memberId;
+
+            _context.Entry(kanbanTask).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!KanbanTaskExists(taskId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return kanbanTask;
+        }
+
         // PUT: api/KanbanTasks/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

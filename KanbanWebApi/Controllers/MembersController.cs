@@ -153,7 +153,13 @@ namespace KanbanWebApi.Controllers
             {
                 return NotFound();
             }
-            var member = await _context.Members.FindAsync(id);
+            var member = await _context.Members
+                .Include(m => m.TasksCreated)
+                .Include(m => m.TasksCompleted)
+                .Include(m => m.TasksAssigned)
+                .Include(m => m.Categories)
+                .Include(m => m.Comments)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (member == null)
             {
                 return NotFound();

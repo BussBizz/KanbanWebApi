@@ -4,6 +4,7 @@ using KanbanWebApi.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KanbanWebApi.Migrations
 {
     [DbContext(typeof(KanbanDBContext))]
-    partial class KanbanDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230522203331_adminMemberRole")]
+    partial class adminMemberRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +47,7 @@ namespace KanbanWebApi.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Boards", (string)null);
+                    b.ToTable("Boards");
                 });
 
             modelBuilder.Entity("KanbanWebApi.Models.Category", b =>
@@ -74,7 +77,7 @@ namespace KanbanWebApi.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("KanbanWebApi.Models.Comment", b =>
@@ -104,7 +107,7 @@ namespace KanbanWebApi.Migrations
 
                     b.HasIndex("MemberId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("KanbanWebApi.Models.Invite", b =>
@@ -133,7 +136,7 @@ namespace KanbanWebApi.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Invites", (string)null);
+                    b.ToTable("Invites");
                 });
 
             modelBuilder.Entity("KanbanWebApi.Models.KanbanTask", b =>
@@ -179,7 +182,7 @@ namespace KanbanWebApi.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("KanbanTasks", (string)null);
+                    b.ToTable("KanbanTasks");
                 });
 
             modelBuilder.Entity("KanbanWebApi.Models.Member", b =>
@@ -205,9 +208,6 @@ namespace KanbanWebApi.Migrations
                     b.Property<bool>("CanCreate")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsOwner")
-                        .HasColumnType("bit");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -217,7 +217,7 @@ namespace KanbanWebApi.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Members", (string)null);
+                    b.ToTable("Members");
                 });
 
             modelBuilder.Entity("KanbanWebApi.Models.Password", b =>
@@ -240,7 +240,7 @@ namespace KanbanWebApi.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Passwords", (string)null);
+                    b.ToTable("Passwords");
                 });
 
             modelBuilder.Entity("KanbanWebApi.Models.Token", b =>
@@ -260,7 +260,7 @@ namespace KanbanWebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tokens", (string)null);
+                    b.ToTable("Tokens");
                 });
 
             modelBuilder.Entity("KanbanWebApi.Models.User", b =>
@@ -283,7 +283,7 @@ namespace KanbanWebApi.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("KanbanWebApi.Models.Board", b =>
@@ -350,8 +350,7 @@ namespace KanbanWebApi.Migrations
                 {
                     b.HasOne("KanbanWebApi.Models.Member", "Assigned")
                         .WithMany("TasksAssigned")
-                        .HasForeignKey("AssignedId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("AssignedId");
 
                     b.HasOne("KanbanWebApi.Models.Category", "Category")
                         .WithMany("KanbanTasks")

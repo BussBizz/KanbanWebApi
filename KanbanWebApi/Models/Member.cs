@@ -6,6 +6,8 @@
         public bool CanComplete { get; set; } = true;
         public bool CanCreate { get; set; } = false;
         public bool CanAssign { get; set; } = false;
+        public bool CanAdmin { get; set; } = false;
+        public bool IsOwner { get; set; } = false;
 
         // FK
         public int BoardId { get; set; }
@@ -18,6 +20,7 @@
         // Collection prop
         public ICollection<KanbanTask> TasksAssigned { get; set;} = null!;
         public ICollection<KanbanTask> TasksCreated { get; set;} = null!;
+        public ICollection<KanbanTask> TasksCompleted { get; set;} = null!;
         public ICollection<Comment> Comments { get; set; } = null!;
         public ICollection<Category> Categories { get; set; } = null!;
     }
